@@ -1,0 +1,43 @@
+# VPN Controller configuration for Gluetun podman containers.
+# Copy to config.toml and fill in your credentials.
+#
+# This file is platform- and provider-agnostic: add any Gluetun-supported
+# provider and any country. There are no hardcoded provider or country lists.
+
+[server]
+  listen = ":8880"
+  auth_token = "CHANGE_ME_SECRET_TOKEN"
+  base_port = 8881
+
+# --- Example provider 1 (primary) ---
+# Replace "myprimary" with any identifier you choose.
+[providers.myprimary]
+  enabled = true
+  priority = 1
+  vpn_service_provider = "protonvpn"   # any Gluetun-supported provider
+  vpn_type = "wireguard"
+  wireguard_private_key = "BASE64_PRIVATE_KEY"
+  # wireguard_addresses = "10.x.y.z/32"
+  # wireguard_preshared_key = ""
+  countries = ["jp", "id", "tw", "hk", "us"]
+  socks5_port_base = 8881
+  control_port_base = 8101
+  failover_to = ["mybackup"]
+
+# --- Example provider 2 (backup) ---
+[providers.mybackup]
+  enabled = true
+  priority = 2
+  vpn_service_provider = "windscribe"  # any Gluetun-supported provider
+  vpn_type = "wireguard"
+  wireguard_private_key = "BASE64_PRIVATE_KEY"
+  wireguard_addresses = "10.64.x.y/32"
+  wireguard_preshared_key = "PRESHARED_KEY"
+  countries = ["jp", "us"]
+  socks5_port_base = 8891
+  control_port_base = 8111
+
+# --- Persistent countries: containers stay alive even when idle ---
+# Any country code can go here; there is no predefined set.
+[persistent]
+  countries = ["id", "tw"]

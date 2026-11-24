@@ -1,0 +1,62 @@
+version: '3'
+
+vars:
+  BIN: betabeta
+  SRC_DIR: src
+
+tasks:
+  build:
+    cmds:
+      - go build -o {{.BIN}} ./{{.SRC_DIR}}/
+    desc: Build the betabeta binary
+
+  run:
+    cmds:
+      - go run ./{{.SRC_DIR}}/
+    desc: Run betabeta directly from source
+
+  test:
+    cmds:
+      - go test ./{{.SRC_DIR}}/...
+    desc: Run unit tests
+
+  clean:
+    cmds:
+      - rm -f {{.BIN}}
+    desc: Clean build artifacts
+
+  install:
+    cmds:
+      - "mkdir -p $HOME/.local/bin"
+      - "mkdir -p $HOME/.config/betabeta"
+      - "go build -o $HOME/.local/bin/{{.BIN}} ./{{.SRC_DIR}}/"
+      - "cp config.example.toml $HOME/.config/betabeta/config.toml"
+    desc: Install betabeta to ~/.local/bin and config to ~/.config/betabeta
+
+  systemd-install:
+    cmds:
+      - task: install
+      - sh: |
+          mkdir -p $HOME/.config/systemd/user
+          sed -e "s|__BIN_PATH__|$HOME/.local/bin/{{.BIN}}|" \
+              -e "s|__CONFIG_DIR__|$HOME/.config/betabeta|" \
+              -e "s|__CONFIG_TOML__|$HOME/.config/betabeta/config.toml|" \
+              misc/betabeta.service > $HOME/.config/systemd/user/{{.BIN}}.service
+    desc: Install betabeta + systemd user service (dynamic paths)
+
+  systemd-uninstall:
+    cmds:
+      - "rm -f $HOME/.config/systemd/user/{{.BIN}}.service"
+    desc: Remove systemd user service
+
+  uninstall:
+    cmds:
+      - task: systemd-uninstall
+      - "rm -f $HOME/.local/bin/{{.BIN}}"
+      - "rm -rf $HOME/.config/betabeta"
+    desc: Uninstall betabeta
+
+  help:
+    cmds:
+      - task --list
+    desc: List available tasks

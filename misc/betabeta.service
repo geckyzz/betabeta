@@ -1,0 +1,15 @@
+[Unit]
+Description=betabeta (Gluetun podman manager)
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=__CONFIG_DIR__
+ExecStart=__BIN_PATH__
+Environment=BETABETA_CONFIG=__CONFIG_TOML__
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

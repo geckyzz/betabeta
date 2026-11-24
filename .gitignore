@@ -1,0 +1,33 @@
+# Compiled binary
+betabeta
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Build artifacts
+/vendor/
+/bin/
+/out/
+*.a
+
+# IDE and editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Test coverage
+coverage.out
+
+# Go specific
+*.exe
