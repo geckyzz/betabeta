@@ -1,4 +1,4 @@
-# VPN Controller — on-demand Gluetun SOCKS5 proxy manager
+# betabeta — on-demand Gluetun SOCKS5 proxy manager
 
 A small Go service that starts, stops, and manages [Gluetun](https://github.com/qdm12/gluetun)
 podman containers on demand, exposing them as SOCKS5 proxies over a simple HTTP API.
@@ -9,7 +9,7 @@ country (Japan, Indonesia, Taiwan, Hong Kong, USA) gets its own Gluetun containe
 only when needed and torn down when idle.
 
 ```
-client ──► VPN Controller ──► podman run qmcgaw/gluetun (ProtonVPN → Japan)
+client ──► betabeta ──► podman run qmcgaw/gluetun (ProtonVPN → Japan)
              HTTP API                    SOCKS5 proxy
                                          ▲
                                          │
@@ -107,7 +107,8 @@ task uninstall                  # remove everything
 ```
 
 When `systemd-install` is used, the service file at `misc/betabeta.service` is
-templated: `__BIN_PATH__`, `__CONFIG_DIR__`, and `__CONFIG_TOML__` are replaced
+templated: `__BETABETA_BIN_PATH__`, `__BETABETA_CONFIG_DIR__`, and
+`__BETABETA_CONFIG_TOML__` are replaced
 with your actual install paths (`~/.local/bin/betabeta`,
 `~/.config/betabeta`, `~/.config/betabeta/config.toml`). The resulting service is
 written to `~/.config/systemd/user/betabeta.service` — disabled by default, so it

@@ -5,9 +5,9 @@ Wants=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=__CONFIG_DIR__
-ExecStart=__BIN_PATH__
-Environment=BETABETA_CONFIG=__CONFIG_TOML__
+WorkingDirectory=__BETABETA_CONFIG_DIR__
+ExecStart=__BETABETA_BIN_PATH__
+Environment=BETABETA_CONFIG=__BETABETA_CONFIG_TOML__
 Restart=always
 RestartSec=5
 

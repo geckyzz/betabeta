@@ -24,7 +24,7 @@ import (
 	"github.com/BurntSushi/toml"
 )
 
-// Config is the top-level TOML configuration for the VPN controller.
+// Config is the top-level TOML configuration for the betabeta.
 type Config struct {
 	Server     ServerConfig              `toml:"server"`
 	Providers  map[string]ProviderConfig `toml:"providers"`

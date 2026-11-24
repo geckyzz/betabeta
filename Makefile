@@ -34,9 +34,9 @@ install:
 ## Install betabeta + systemd user service (dynamic paths).
 systemd-install: install
 	@mkdir -p $(HOME)/.config/systemd/user
-	@sed -e "s|__BIN_PATH__|$(HOME)/.local/bin/$(BIN)|" \
-	    -e "s|__CONFIG_DIR__|$(HOME)/.config/betabeta|" \
-	    -e "s|__CONFIG_TOML__|$(HOME)/.config/betabeta/config.toml|" \
+	@sed -e "s|__BETABETA_BIN_PATH__|$(HOME)/.local/bin/$(BIN)|" \
+	    -e "s|__BETABETA_CONFIG_DIR__|$(HOME)/.config/betabeta|" \
+	    -e "s|__BETABETA_CONFIG_TOML__|$(HOME)/.config/betabeta/config.toml|" \
 	    misc/betabeta.service > $(HOME)/.config/systemd/user/$(BIN).service
 	@echo "Installed systemd service to $(HOME)/.config/systemd/user/$(BIN).service"
 	@echo "Run: systemctl --user daemon-reload && systemctl --user enable --now $(BIN)"

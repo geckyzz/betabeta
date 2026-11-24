@@ -1,4 +1,4 @@
-# VPN Controller configuration for Gluetun podman containers.
+# betabeta configuration for Gluetun podman containers.
 # Copy to config.toml and fill in your credentials.
 #
 # This file is platform- and provider-agnostic: add any Gluetun-supported

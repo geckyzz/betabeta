@@ -61,18 +61,18 @@ func main() {
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
 
 	go func() {
-		log.Printf("VPN controller listening on %s", cfg.Server.Listen)
+		log.Printf("betabeta listening on %s", cfg.Server.Listen)
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("HTTP server error: %v", err)
 		}
 	}()
 
 	<-stop
-	log.Printf("Shutting down VPN controller...")
+	log.Printf("Shutting down betabeta...")
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Printf("Error shutting down server: %v", err)
 	}
-	log.Printf("VPN controller stopped")
+	log.Printf("betabeta stopped")
 }
